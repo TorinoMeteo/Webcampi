@@ -1,5 +1,5 @@
 #! /bin/bash
-cd /home/pi/webcam/
+cd /home/pi/Webcampi/
 FILETOUPLOAD=webcam.jpg
     HOSTNAME="ftp.yoursite.com"
     USERNAME="YourUsername"
