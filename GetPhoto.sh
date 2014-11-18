@@ -1,9 +1,13 @@
 #! /bin/bash
+# Webcam with raspberry and gphoto2 supported camera
+
 cd /home/pi/Webcampi/
 FILETOUPLOAD=webcam.jpg
     HOSTNAME="ftp.yoursite.com"
     USERNAME="YourUsername"
     PASSWORD="YourPassword"
+
+Location=20126313 #this is the yahoo api WOEID for the required location
 
 echo "GetPhoto: Started. " $(date) > Log.txt
 sleep 1
@@ -17,7 +21,6 @@ sleep 1
 gphoto2 --set-config capture=on
 cd /home/pi/webcam/
 rm *jpg
-Location=20126313 #this is the yahoo api WOEID for the required location
 
 NOW=`date +%s`
 
