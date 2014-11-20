@@ -1,7 +1,7 @@
 #! /bin/bash
 # Webcam with raspberry and gphoto2 supported camera
 
-cd /home/pi/Webcampi/
+#cd /home/pi/Webcampi/
 FILETOUPLOAD=webcam.jpg
 HOSTNAME="ftp.yoursite.com"
 USERNAME="YourUsername"
@@ -24,6 +24,7 @@ DAWN=`date --date "${SUNRISE24H} $2 $TZone -30 min" +%s`
 SUNSET12H=`curl -s http://weather.yahooapis.com/forecastrss?w=$Location|grep astronomy| awk -F\" '{print $4}'`
 SUNSET24H=`date --date="${SUNSET12H}" +%T`
 DUSK=`date --date "${SUNSET24H} $4 $TZone +30 min" +%s`
+
 echo "GetPhoto: Calculate Dusk Dawn and Get Photo. " $(date) >> Log.txt
 
 if [ $NOW -ge $DAWN ] && [ $NOW -le $DUSK ]
@@ -39,7 +40,6 @@ echo "GetPhoto: Night parameters. " $(date) >> Log.txt
 raspistill -w 1200 -h 1400 -rot 270  -o /image.jpg -sa 0 -sh 50 -ISO 400 -ev 50 -awb fluorescent -awbg 1,1 -ss 6000000 -t 60000
 fi
 echo "GetPhoto: Turned Off Camera. " $(date) >> Log.txt
-gpio -g write 23 0
 
 NOWDT=`date +"%d/%m/%y %R"`
 
@@ -80,6 +80,3 @@ ps axf | grep ftp | grep -v grep | awk '{print "kill -9 " $1}' | sh
       put Log.txt
 quit
 EOF
-
-gpio -g write 23 0
-
