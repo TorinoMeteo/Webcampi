@@ -30,13 +30,13 @@ if [ $NOW -ge $DAWN ] && [ $NOW -le $DUSK ]
 then
 echo "Parametri Giorno"
 echo "GetPhoto: day parameters. " $(date) >> Log.txt
-
+raspistill -w 1200 -h 1400 -co 24 -o /image.jpg -sa 40 -sh 100 -ev -5 -ex auto -awb fluorescent  -rot 270 -q 100
 fi
 if [ $NOW -le $DAWN ] || [ $NOW -ge $DUSK ]
 then
 echo "Parametri Notte"
 echo "GetPhoto: Night parameters. " $(date) >> Log.txt
-
+raspistill -w 1200 -h 1400 -rot 270  -o /image.jpg -sa 0 -sh 50 -ISO 400 -ev 50 -awb fluorescent -awbg 1,1 -ss 6000000 -t 60000
 fi
 echo "GetPhoto: Turned Off Camera. " $(date) >> Log.txt
 gpio -g write 23 0
