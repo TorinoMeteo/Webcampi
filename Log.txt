@@ -1,0 +1,16 @@
+GetPhoto: Started.  sab 22 nov 2014, 10.21.33, CET
+GetPhoto: Calculate Dusk Dawn and Get Photo.  sab 22 nov 2014, 10.21.34, CET
+GetPhoto: day parameters.  sab 22 nov 2014, 10.21.34, CET
+GetPhoto: Turned Off Camera.  sab 22 nov 2014, 10.21.40, CET
+GetPhoto: Imprinting Date And Time.  sab 22 nov 2014, 10.21.40, CET
+GetPhoto: Imprinting Header.  sab 22 nov 2014, 10.21.56, CET
+GetPhoto: Kill Old FTP Process If Exist And Upload New File sab 22 nov 2014, 10.21.59, CET
+-----
+System Info:
+Temperature:
+Core:  temp=44.4'C
+Voltages:
+Core:  volt=1.20V
+SdRam C:  volt=1.20V
+SdRam I:  volt=1.20V
+SdRam P:  volt=1.23V
