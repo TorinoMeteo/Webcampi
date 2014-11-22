@@ -24,13 +24,13 @@ if [ $NOW -ge $DAWN ] && [ $NOW -le $DUSK ]
 then
 echo "Parametri Giorno"
 echo "GetPhoto: day parameters. " $(date) >> Log.txt
-raspistill -w 1200 -h 1400 -co 24 -o IMG.jpg -sa 40 -sh 100 -ev -5 -ex auto -awb fluorescent  -rot 270 -q 100
+raspistill -w 1600 -h 1200 -co 24 -o IMG.jpg -sa 40 -sh 100 -ev -5 -ex auto -awb fluorescent  -q 100
 fi
 if [ $NOW -le $DAWN ] || [ $NOW -ge $DUSK ]
 then
 echo "Parametri Notte"
 echo "GetPhoto: Night parameters. " $(date) >> Log.txt
-raspistill -w 1200 -h 1400 -rot 270  -o IMG.jpg -sa 0 -sh 50 -ISO 400 -ev 50 -awb fluorescent -awbg 1,1 -ss 6000000 -t 60000
+raspistill -w 1600 -h 1200 -o IMG.jpg -sa 0 -sh 50 -ISO 400 -ev 50 -awb fluorescent -awbg 1,1 -ss 6000000 -t 60000
 fi
 echo "GetPhoto: Turned Off Camera. " $(date) >> Log.txt
 
@@ -47,7 +47,7 @@ convert -background '#00F8' -fill white -gravity east -size ${width}x30 \
 echo "GetPhoto: Imprinting Header. " $(date) >> Log.txt
 width1=`identify -format %w input2.jpg`
 convert -background '#00F8' -fill white -gravity center -size ${width1}x30 \
-          caption:$DESCRIPTION \
+          caption:"$DESCRIPTION"\
           input2.jpg +swap -gravity north -composite $FILETOUPLOAD
 
 echo "GetPhoto: Kill Old FTP Process If Exist And Upload New File" $(date) >> Log.txt
@@ -68,7 +68,7 @@ ps axf | grep ftp | grep -v grep | awk '{print "kill -9 " $1}' | sh
       quote PASS $PASSWORD
       binary
       hash
-      cd /remote/folder/to/upload
+      cd $DIRECTORY
       put $FILETOUPLOAD
       put Log.txt
 quit
