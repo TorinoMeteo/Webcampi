@@ -6,10 +6,22 @@ sudo dos2unix /boot/webcam.conf
 
 cd /home/pi/Webcampi/
 
+NOW=`date +%s`
+LASTRUNINT=`cat lastrun`
+LASTRUN=`date -d "@$LASTRUNINT" +%s`
+ET=$((NOW- LASTRUN))
+PRESET=$((TIMER * 60))
+echo "time elapsed:" $ET
+echo "Preset:" $PRESET
+if [ $ET -ge $PRESET ]
+then
+NOW=`date +%s`
+LASTRUN=`date +%s`
+
+echo $LASTRUN > lastrun
 echo "GetPhoto: Started. " $(date) > Log.txt
 rm *jpg
 
-NOW=`date +%s`
 TZone=`date | awk '{ print $6}'`
 SUNRISE12H=`curl -s http://weather.yahooapis.com/forecastrss?w=$Location|grep astronomy| awk -F\" '{print $2}'`
 SUNRISE24H=`date --date="${SUNRISE12H}" +%T`
@@ -41,11 +53,11 @@ echo $NOWDT
 
 echo "GetPhoto: Imprinting Informations. " $(date) >> Log.txt
 
-convert -background '#00F8' -fill white -gravity center -size 1600x30 \
+convert -verbose -background '#00F8' -fill white -gravity center -size 1600x30 \
           caption:"$DESCRIPTION" \
           $FILETOUPLOAD +swap -gravity south -composite $FILETOUPLOAD
 
-convert -draw "text 3,1195 'www.torinometeo.org'" -draw "text 1460,1195 '$NOWDT'" \
+convert -verbose -draw "text 3,1195 'www.torinometeo.org'" -draw "text 1460,1195 '$NOWDT'" \
 	-fill yellow -pointsize 20 $FILETOUPLOAD $FILETOUPLOAD
 
 convert $FILETOUPLOAD logoTM2.png -geometry 200x70+1430+1070 -composite -matte $FILETOUPLOAD
@@ -73,3 +85,4 @@ ftp -dvin $HOSTNAME << EOF
       put Log.txt
 quit
 EOF
+fi
