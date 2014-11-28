@@ -28,11 +28,11 @@ LOGOVPOS=$(( HEIGHT - 130 ))
 LOGOHPOS=$(( WIDTH - 170 ))
 
 TZone=`date | awk '{ print $6}'`
-SUNRISE12H=`curl -s http://weather.yahooapis.com/forecastrss?w=$Location|grep astronomy| awk -F\" '{print $2}'`
+SUNRISE12H=`curl -s http://weather.yahooapis.com/forecastrss?w=$LOCATION|grep astronomy| awk -F\" '{print $2}'`
 SUNRISE24H=`date --date="${SUNRISE12H}" +%T`
 DAWN=`date --date "${SUNRISE24H} $2 $TZone -30 min" +%s`
 
-SUNSET12H=`curl -s http://weather.yahooapis.com/forecastrss?w=$Location|grep astronomy| awk -F\" '{print $4}'`
+SUNSET12H=`curl -s http://weather.yahooapis.com/forecastrss?w=$LOCATION|grep astronomy| awk -F\" '{print $4}'`
 SUNSET24H=`date --date="${SUNSET12H}" +%T`
 DUSK=`date --date "${SUNSET24H} $4 $TZone +30 min" +%s`
 
