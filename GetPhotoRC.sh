@@ -11,7 +11,6 @@ LASTRUNINT=`cat lastrun`
 LASTRUN=`date -d "@$LASTRUNINT" +%s`
 ET=$((NOW- LASTRUN))
 PRESET=$((TIMER * 60))
-PRESET=0
 echo "time elapsed:" $ET
 echo "Preset:" $PRESET
 if [ $ET -ge $PRESET ]
