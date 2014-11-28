@@ -1,13 +1,13 @@
-GetPhoto: Started.  gio 27 nov 2014, 23.24.27, CET
-GetPhoto: Calculate Dusk Dawn and Get Photo.  gio 27 nov 2014, 23.24.32, CET
-GetPhoto: Night parameters.  gio 27 nov 2014, 23.24.32, CET
-GetPhoto: Turned Off Camera.  gio 27 nov 2014, 23.26.04, CET
-GetPhoto: Imprinting Informations.  gio 27 nov 2014, 23.26.04, CET
-GetPhoto: Kill Old FTP Process If Exist And Upload New File gio 27 nov 2014, 23.26.52, CET
+GetPhoto: Started.  ven 28 nov 2014, 11.42.25, CET
+GetPhoto: Calculate Dusk Dawn and Get Photo.  ven 28 nov 2014, 11.42.26, CET
+GetPhoto: day parameters.  ven 28 nov 2014, 11.42.26, CET
+GetPhoto: Turned Off Camera.  ven 28 nov 2014, 11.42.32, CET
+GetPhoto: Imprinting Informations.  ven 28 nov 2014, 11.42.32, CET
+GetPhoto: Kill Old FTP Process If Exist And Upload New File ven 28 nov 2014, 11.43.20, CET
 -----
 System Info:
 Temperature:
-Core:  temp=53.0'C
+Core:  temp=50.8'C
 Voltages:
 Core:  volt=1.35V
 SdRam C:  volt=1.20V

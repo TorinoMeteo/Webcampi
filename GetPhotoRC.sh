@@ -11,6 +11,7 @@ LASTRUNINT=`cat lastrun`
 LASTRUN=`date -d "@$LASTRUNINT" +%s`
 ET=$((NOW- LASTRUN))
 PRESET=$((TIMER * 60))
+PRESET=0
 echo "time elapsed:" $ET
 echo "Preset:" $PRESET
 if [ $ET -ge $PRESET ]
@@ -21,6 +22,11 @@ LASTRUN=`date +%s`
 echo $LASTRUN > lastrun
 echo "GetPhoto: Started. " $(date) > Log.txt
 rm *jpg
+
+TEXTVPOS=$(( HEIGHT - 5 ))
+TEXTRIGHTPOS=$(( WIDTH - 140 ))
+LOGOVPOS=$(( HEIGHT - 130 ))
+LOGOHPOS=$(( WIDTH - 170 ))
 
 TZone=`date | awk '{ print $6}'`
 SUNRISE12H=`curl -s http://weather.yahooapis.com/forecastrss?w=$Location|grep astronomy| awk -F\" '{print $2}'`
@@ -37,13 +43,13 @@ if [ $NOW -ge $DAWN ] && [ $NOW -le $DUSK ]
 then
 echo "Parametri Giorno"
 echo "GetPhoto: day parameters. " $(date) >> Log.txt
-raspistill -w 1600 -h 1200 -co 24 -o $FILETOUPLOAD -sa 40 -sh 100 -ev -5 -ex auto -awb fluorescent  -q 100
+raspistill -w $WIDTH -h $HEIGHT -co 24 -o $FILETOUPLOAD -sa 40 -sh 100 -ev -5 -ex auto -awb fluorescent  -q 100
 fi
 if [ $NOW -le $DAWN ] || [ $NOW -ge $DUSK ]
 then
 echo "Parametri Notte"
 echo "GetPhoto: Night parameters. " $(date) >> Log.txt
-raspistill -w 1600 -h 1200 -o $FILETOUPLOAD -sa 0 -sh 50 -ISO 400 -ev 50 -awb fluorescent -awbg 1,1 -ss 6000000 -t 60000
+raspistill -w $WIDTH -h $HEIGHT -o $FILETOUPLOAD -sa 0 -sh 50 -ISO 400 -ev 50 -awb fluorescent -awbg 1,1 -ss 6000000 -t 60000
 fi
 echo "GetPhoto: Turned Off Camera. " $(date) >> Log.txt
 
@@ -53,14 +59,14 @@ echo $NOWDT
 
 echo "GetPhoto: Imprinting Informations. " $(date) >> Log.txt
 
-convert -verbose -background '#00F8' -fill white -gravity center -size 1600x30 \
+convert -verbose -background '#00F8' -fill white -gravity center -size "$WIDTH"x30 \
           caption:"$DESCRIPTION" \
           $FILETOUPLOAD +swap -gravity south -composite $FILETOUPLOAD
 
-convert -verbose -draw "text 3,1195 'www.torinometeo.org'" -draw "text 1460,1195 '$NOWDT'" \
+convert -verbose -draw "text 3,$TEXTVPOS 'www.torinometeo.org'" -draw "text $TEXTRIGHTPOS,$TEXTVPOS '$NOWDT'" \
 	-fill yellow -pointsize 20 $FILETOUPLOAD $FILETOUPLOAD
 
-convert $FILETOUPLOAD logoTM2.png -geometry 200x70+1430+1070 -composite -matte $FILETOUPLOAD
+convert $FILETOUPLOAD logoTM2.png -geometry 200x70+"$LOGOHPOS"+"$LOGOVPOS" -composite -matte $FILETOUPLOAD
 
 echo "GetPhoto: Kill Old FTP Process If Exist And Upload New File" $(date) >> Log.txt
 echo "-----" >> Log.txt
